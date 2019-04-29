@@ -66,3 +66,20 @@ Taki format czasu zostal wybrany, by wyniki byly latwiejsze w analizie.
 Pliki z wykresami, gdzie kind oznacza typ danych pomiarowych. Na wykresach znajduja sie zbiorczo wyniki mnozen czterema sposobami dla danego typu.
 
 ## Wnioski
+![wykres4](/uploads/e73e93e7b4e1e4daa1827a518af00f90/wykres4.png)
+Na tym wykresie widac, że srednio funkcja matmul daje najlepsze wyniki mnozenia. Mnozenie naiwne i za pomoca dot_product daja najgorsze rezultaty, natomiast mnozenie better
+daje coraz lepsze wyniki wraz z wzrostem rozmiaru macierzy, gdzie w pozostalych przypadkach czas rosnie wraz z rozmiarem.
+
+![wykres8](/uploads/347b5116b9e2deb7996d336ba2afe337/wykres8.png)
+Wykres zawiera blad, jednak nie udalo mi sie dociec dlaczego, pomimo podozania za instrukcjami do narysowania go w gnuplocie.
+Analizujac gorna(poprawna) czesc mozemy zauwazyc zmiane w stosunku do poprzednich pomiarow. Funkcje dotmul, naivemul oraz bettmul dla duzych rozmiarow zaczynaja dzialac
+z podobnym czasem i tylko dla nieduzych macierzy funkcja dotmul uzyskuje gorsze rezultaty. Najgorzej jak poprzednio dziala funkcja naivmul, ktorej czasy rosna wraz
+z rozmiarami macierzy.
+
+![wykres16](/uploads/234922505950bd1a813634409cb96e64/wykres16.png)
+Dla kind = 16 wszystkie funkcje zaczynaja uzyskiwac podbne czasy, wraz ze wzrostem rozmiaru macierzy. Co ciekawe, najgorsze rezultaty osiaga funkcja bettmul, natomiast
+naivmul zachowuje sie podobnie do funkcji matmul.
+
+#### Wnioski ogolne
+Można dostrzec, że ogólnie najlepiej prezentuja sie funkcje matmul oraz bettmul, a najgorzej funkcja naivmul, ale dla uzyskania lepszych pomiarow i porownan powinno sie
+przeprowadzic testy dla wiekszych rozmiarow macierzy, nawet do 10000. Wtedy roznice powinny byc bardziej widoczne.
