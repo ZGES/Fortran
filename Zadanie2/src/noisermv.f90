@@ -23,7 +23,7 @@ program noisermv
     character(:), allocatable :: format1
     character(:), allocatable :: format2
 
-    format1 = "(F13.10,A1,F19.16)"
+    format1 = "(F13.10,A1,F22.16)"
     format2 = "(I3,A1,F20.16)"
 
     !initialization
