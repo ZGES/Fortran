@@ -11,7 +11,7 @@ program main
     real(kind = 16), dimension(:,:), allocatable :: A16, B16
     character(:), allocatable :: format1
 
-    format1 = "(I4, A1, F18.16)"
+    format1 = "(I4, A1, F19.16)"
 
     call init()
 
@@ -45,14 +45,13 @@ program main
             integer :: I
 
             do I = 1, N, 1
-                call random_number(A4(I,:))
-                call random_number(B4(I,:))
-                call random_number(A8(I,:))
-                call random_number(B8(I,:))
-                call random_number(A16(I,:))
-                call random_number(B16(I,:))
+                call random_number(A4(I,N))
+                call random_number(B4(I,N))
+                call random_number(A8(I,N))
+                call random_number(B8(I,N))
+                call random_number(A16(I,N))
+                call random_number(B16(I,N))
             end do
-
         end subroutine randomize_matrix
 
         subroutine time_measure()
@@ -85,85 +84,103 @@ program main
                 mtime8 = 0
                 mtime16 = 0
 
-                do I = 1, 40, 1
-                    call randomize_matrix(N)
+                allocate(A4(N,N))
+                allocate(B4(N,N))
+                allocate(A8(N,N))
+                allocate(B8(N,N))
+                allocate(A16(N,N))
+                allocate(B16(N,N))
+                allocate(C4(N,N))
+                allocate(C8(N,N))
+                allocate(C16(N,N))
 
-                    call cpu_time(time_start)
-                        C4 = naivmull(A4,B4)
-                    call cpu_time(time_stop)
-                    ntime4 = ntime4 + time_stop - time_start
-        
-                    call cpu_time(time_start)
-                        C8 = naivmull(A8,B8)
-                    call cpu_time(time_stop)
-                    ntime8 = ntime8 + time_stop - time_start
-        
-                    call cpu_time(time_start)
-                        C16 = naivmull(A16,B16)
-                    call cpu_time(time_stop)
-                    ntime16 = ntime16 + time_stop - time_start
-                    
-                    call cpu_time(time_start)
-                        C4 =  bettmull(A4,B4)
-                    call cpu_time(time_stop)
-                    btime4 = btime4 + time_stop - time_start
-        
-                    call cpu_time(time_start)
-                        C8 = bettmull(A8,B8)
-                    call cpu_time(time_stop)
-                    btime8 = btime8 + time_stop - time_start
-        
-                    call cpu_time(time_start)
-                        C16 = bettmull(A16,B16)
-                    call cpu_time(time_stop)
-                    btime16 = btime16 + time_stop - time_start
-        
-                    call cpu_time(time_start)
-                        C4 = dotmull(A4,B4)
-                    call cpu_time(time_stop)
-                    dtime4 = dtime4 + time_stop - time_start
-        
-                    call cpu_time(time_start)
-                        C8 = dotmull(A8,B8)
-                    call cpu_time(time_stop)
-                    dtime8 = dtime8 + time_stop - time_start
-        
-                    call cpu_time(time_start)
-                        C16 = dotmull(A16,B16)
-                    call cpu_time(time_stop)
-                    dtime16 = dtime16 + time_stop - time_start
 
-                    call cpu_time(time_start)
-                        C4 = matmul(A4,B4)
-                    call cpu_time(time_stop)
-                    mtime4 = mtime4 + time_stop - time_start
+                call randomize_matrix(N)
 
-                    call cpu_time(time_start)
-                        C8 = matmul(A8,B8)
-                    call cpu_time(time_stop)
-                    mtime8 = mtime8 + time_stop - time_start
-
-                    call cpu_time(time_start)
-                        C16 = matmul(A16,B16)
-                    call cpu_time(time_stop)
-                    mtime16 = mtime16 + time_stop - time_start
-
-                end do
+                call cpu_time(time_start)
+                    C4 = naivmull(A4,B4)
+                call cpu_time(time_stop)
+                ntime4 = time_stop - time_start
                 
-                write(unit = 20, fmt = format1) N, " ", ntime4*10000
-                write(unit = 21, fmt = format1) N, " ", ntime8*10000
-                write(unit = 22, fmt = format1) N, " ", ntime16*10000
-                write(unit = 23, fmt = format1) N, " ", btime4*10000
-                write(unit = 24, fmt = format1) N, " ", btime8*10000
-                write(unit = 25, fmt = format1) N, " ", btime16*10000
-                write(unit = 26, fmt = format1) N, " ", dtime4*10000
-                write(unit = 27, fmt = format1) N, " ", dtime8*10000
-                write(unit = 28, fmt = format1) N, " ", dtime16*10000
-                write(unit = 29, fmt = format1) N, " ", mtime4*10000
-                write(unit = 30, fmt = format1) N, " ", mtime8*10000
-                write(unit = 31, fmt = format1) N, " ", mtime16*10000
+                call cpu_time(time_start)
+                    C8 = naivmull(A8,B8)
+                call cpu_time(time_stop)
+                ntime8 = time_stop - time_start
+        
+                call cpu_time(time_start)
+                     C16 = naivmull(A16,B16)
+                call cpu_time(time_stop)
+                ntime16 = time_stop - time_start
+                
+                call cpu_time(time_start)
+                    C4 =  bettmull(A4,B4)
+                call cpu_time(time_stop)
+                btime4 = time_stop - time_start
+        
+                call cpu_time(time_start)
+                    C8 = bettmull(A8,B8)
+                call cpu_time(time_stop)
+                btime8 = time_stop - time_start
+        
+                call cpu_time(time_start)
+                    C16 = bettmull(A16,B16)
+                call cpu_time(time_stop)
+                btime16 = time_stop - time_start
+        
+                call cpu_time(time_start)
+                    C4 = dotmull(A4,B4)
+                call cpu_time(time_stop)
+                dtime4 = time_stop - time_start
+        
+                call cpu_time(time_start)
+                    C8 = dotmull(A8,B8)
+                call cpu_time(time_stop)
+                dtime8 = time_stop - time_start
+        
+                call cpu_time(time_start)
+                    C16 = dotmull(A16,B16)
+                call cpu_time(time_stop)
+                dtime16 = time_stop - time_start
+
+                call cpu_time(time_start)
+                    C4 = matmul(A4,B4)
+                call cpu_time(time_stop)
+                mtime4 = time_stop - time_start
+
+                call cpu_time(time_start)
+                    C8 = matmul(A8,B8)
+                call cpu_time(time_stop)
+                mtime8 = time_stop - time_start
+
+                call cpu_time(time_start)
+                    C16 = matmul(A16,B16)
+                call cpu_time(time_stop)
+                mtime16 = time_stop - time_start
+                
+                write(unit = 20, fmt = format1) N, " ", ntime4
+                write(unit = 21, fmt = format1) N, " ", ntime8
+                write(unit = 22, fmt = format1) N, " ", ntime16
+                write(unit = 23, fmt = format1) N, " ", btime4
+                write(unit = 24, fmt = format1) N, " ", btime8
+                write(unit = 25, fmt = format1) N, " ", btime16
+                write(unit = 26, fmt = format1) N, " ", dtime4
+                write(unit = 27, fmt = format1) N, " ", dtime8
+                write(unit = 28, fmt = format1) N, " ", dtime16
+                write(unit = 29, fmt = format1) N, " ", mtime4
+                write(unit = 30, fmt = format1) N, " ", mtime8
+                write(unit = 31, fmt = format1) N, " ", mtime16
 
                 N = N*2
+
+                if(allocated(A4)) deallocate(A4)
+                if(allocated(A8)) deallocate(A8)
+                if(allocated(A16)) deallocate(A16)
+                if(allocated(B4)) deallocate(B4)
+                if(allocated(B8)) deallocate(B8)
+                if(allocated(B16)) deallocate(B16)
+                if(allocated(C4)) deallocate(C4)
+                if(allocated(C8)) deallocate(C8)
+                if(allocated(C16)) deallocate(C16)
 
             end do
 
