@@ -1,4 +1,4 @@
-all: comp test
+all: comp test plot
 
 sigsum:
 	ifort -o sigsum sigsum.f90 -Ldirectory -lfftw3
@@ -15,3 +15,6 @@ comp:
 test:
 	./sigsum
 	./noisermv
+
+plot:
+	bash gnuplot.sh
