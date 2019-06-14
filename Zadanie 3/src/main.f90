@@ -4,32 +4,91 @@ program main
     use myfuns
     implicit none
 
-    interface
-        function fun_int1(x) result(y)
-            implicit none
-            real(kind = 8), intent(in) :: x
-            real(kind = 8) :: y
-        end function fun_int1
-    end interface
-
-    interface
-        function integrate(ibeg, iend, myfun, p) result(value)
-            import :: fun_int
-            implicit none
-            real(kind  = 8), intent(in) :: ibeg !begining of integration interval
-            real(kind  = 8), intent(in) :: iend !end of the integration interval
-            procedure(fun_int) :: myfun !function to be integrated
-            integer(kind = 4), intent(in) :: p !polymonial order
-            real(kind = 8) :: value !result of integration
-        end function integrate
-    end interface
-
     procedure(integrate), pointer :: int_ptr => null() !pointer on integrate function
     procedure(fun_int), pointer :: fun_ptr => null() !pointer on function which will be integrated
-    real(kind = 8),  codimension[*] :: value
-    real(kind  = 8) :: ibeg
-    real(kind  = 8) :: iend
+    real(kind = 8) :: val
+    real(kind  = 8) :: ibeg = 0
+    real(kind  = 8) :: iend = 3
     integer(kind = 4) :: p
+    integer :: i,j !iterators
+    real :: dx !dx
 
-    
+    open(unit = 11, file = "../res/rect_int.txt", status = 'REPLACE')
+    open(unit = 12, file = "../res/trap_int.txt", status = 'REPLACE')
+    !open(unit = 13, file = "../res/gauss_int.txt", status = 'REPLACE')
+
+    do i = 1, 2, 1
+        if(i == 1) then
+            !recttangle rule integration
+            int_ptr => rectangle_int
+        else if(i == 2) then
+            !trapezoidal rule 
+            int_ptr => trapezoidal_int
+        end if
+
+        !polymonial1
+        fun_ptr => polymonial1
+        val = int_ptr(ibeg,iend,fun_ptr, 1)
+        write(*,*)  val
+
+        !polymonial2
+        fun_ptr => polymonial2
+        val = int_ptr(ibeg,iend,fun_ptr, 2)
+        write(*,*)  val
+
+        !polymonial3
+        fun_ptr => polymonial3
+        val = int_ptr(ibeg,iend,fun_ptr, 3)
+        write(*,*)  val
+
+        !polymonial4
+        fun_ptr => polymonial4
+        val = int_ptr(ibeg,iend,fun_ptr, 4)
+        write(*,*)  val
+
+        !polymonial5
+        fun_ptr => polymonial5
+        val = int_ptr(ibeg,iend,fun_ptr, 5)
+        write(*,*)  val
+
+        !polymonial6
+        fun_ptr => polymonial6
+        val = int_ptr(ibeg,iend,fun_ptr, 6)
+        write(*,*)  val
+
+        !polymonial7
+        fun_ptr => polymonial7
+        val = int_ptr(ibeg,iend,fun_ptr, 7)
+        write(*,*)  val
+
+        !polymonial8
+        fun_ptr => polymonial8
+        val = int_ptr(ibeg,iend,fun_ptr, 8)
+        write(*,*)  val
+
+        !polymonial9
+        fun_ptr => polymonial9
+        val = int_ptr(ibeg,iend,fun_ptr, 9)
+        write(*,*)  val
+
+        !polymonial10
+        fun_ptr => polymonial10
+        val = int_ptr(ibeg,iend,fun_ptr, 10)
+        write(*,*)  val
+
+        !my_sin
+        fun_ptr => my_sin
+        val = int_ptr(ibeg,iend,fun_ptr, 5)
+        write(*,*)  val
+
+        !my_exp
+        fun_ptr => my_exp
+        val = int_ptr(ibeg,iend,fun_ptr, 5)
+        write(*,*)  val
+    end do
+
+    !cleaning
+    close(unit = 11, status = 'KEEP')
+    close(unit = 12, status = 'KEEP')
+    !close(unit = 13, status = 'KEEP')
 end program main
