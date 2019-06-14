@@ -9,21 +9,23 @@ program main
     real(kind = 8) :: val
     real(kind  = 8) :: ibeg = 0
     real(kind  = 8) :: iend = 3
-    integer(kind = 4) :: p
     integer :: i,j !iterators
     real :: dx !dx
 
     open(unit = 11, file = "../res/rect_int.txt", status = 'REPLACE')
     open(unit = 12, file = "../res/trap_int.txt", status = 'REPLACE')
-    !open(unit = 13, file = "../res/gauss_int.txt", status = 'REPLACE')
+    open(unit = 13, file = "../res/gauss_int.txt", status = 'REPLACE')
 
-    do i = 1, 2, 1
+    do i = 1, 3, 1
         if(i == 1) then
             !recttangle rule integration
             int_ptr => rectangle_int
         else if(i == 2) then
-            !trapezoidal rule 
+            !trapezoidal rule integration
             int_ptr => trapezoidal_int
+        else if(i == 3) then
+            !gauss integration 
+            int_ptr => gauss_int
         end if
 
         !polymonial1
@@ -90,5 +92,5 @@ program main
     !cleaning
     close(unit = 11, status = 'KEEP')
     close(unit = 12, status = 'KEEP')
-    !close(unit = 13, status = 'KEEP')
+    close(unit = 13, status = 'KEEP')
 end program main
