@@ -80,6 +80,8 @@ Plik zawierający tabelę z zestawieniem pomiarów i różnicami od wartości pr
 Celem zadania było napisanie i przetestowanie 3 metod całkowania, oraz sprawdzenie zachowania metody gaussa dla funkcji nie będącymi wielomianami.
 Wyniki dla każdej z opcji kompilacji wyszły takie same i zostały zestawione w poniższej tabeli razem z różnicą od wartości wyliczonej analitycznie:
 ![table](/uploads/f333fc6af7d97e1491b570bd4427bb74/table.png)
+
+
 Jak widać najlepsze rezultaty dała metoda gaussa, różnica od wrtości prawdziwej nie przekraczała 0.01. Z pozostałych metod metoda trapezów daje gorsze rezultaty
 (błąd około 2 razy większy), jednak obie dają wyniki znacząco różniące się od prawdziwych już dla wielomianów stopnia >= 6.
 
