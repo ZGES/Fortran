@@ -1,0 +1,12 @@
+ 1st order polymonial:      9.0000
+ 2nd order polymonial:      1.4944
+ 3rd order polymonial:    -15.6741
+ 4th order polymonial:   -151.1381
+ 5th order polymonial:     97.2903
+ 6th order polymonial:    626.6274
+ 7th order polymonial:   -260.0960
+ 8th order polymonial:   1747.6585
+ 9th order polymonial:  10866.0968
+10th order polymonial: 121643.1054
+                sinus:      1.9919
+            exponenta:     19.0677
