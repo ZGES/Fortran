@@ -11,7 +11,7 @@ program main
     real(kind  = 8) :: iend 
     integer :: i,j !iterators
     real(kind = 8) :: dx !length of the integration interval per thread
-    integer :: uni
+    integer :: uni !variable for file descriptor
     character(:), allocatable :: format1 !format of results
 
     format1 = "(A23, F11.4)"
